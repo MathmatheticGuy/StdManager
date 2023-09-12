@@ -1,9 +1,28 @@
+package StudentPackage;
+
 import java.awt.Color;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import jdk.javadoc.internal.doclets.formats.html.markup.HtmlTree;
+import jdk.jfr.events.FileWriteEvent;
 
 public class showScoreForm extends javax.swing.JFrame {
-
+    
+    String query;
     score sc = new score();
+    student std = new student();
+
     DefaultTableModel model;
     
     public showScoreForm() {
@@ -16,7 +35,10 @@ public class showScoreForm extends javax.swing.JFrame {
         jTableShowAll.setGridColor(Color.getHSBColor(199, 238, 144));
         jTableShowAll.setSelectionBackground(Color.getHSBColor(152, 251, 152));
     }
+    
 
+    
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -31,6 +53,9 @@ public class showScoreForm extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableShowAll = new javax.swing.JTable();
+        jButtonSortA = new javax.swing.JButton();
+        jButtonExport = new javax.swing.JButton();
+        jButtonSortD = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -51,28 +76,75 @@ public class showScoreForm extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTableShowAll);
 
+        jButtonSortA.setBackground(new java.awt.Color(219, 252, 252));
+        jButtonSortA.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButtonSortA.setForeground(new java.awt.Color(0, 0, 102));
+        jButtonSortA.setText("Sort DESC");
+        jButtonSortA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSortAActionPerformed(evt);
+            }
+        });
+
+        jButtonExport.setBackground(new java.awt.Color(219, 252, 252));
+        jButtonExport.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButtonExport.setForeground(new java.awt.Color(0, 0, 102));
+        jButtonExport.setText("Export");
+        jButtonExport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonExportActionPerformed(evt);
+            }
+        });
+
+        jButtonSortD.setBackground(new java.awt.Color(219, 252, 252));
+        jButtonSortD.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButtonSortD.setForeground(new java.awt.Color(0, 0, 102));
+        jButtonSortD.setText("Sort ASC");
+        jButtonSortD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSortDActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButtonSortD)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonSortA, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonExport, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(74, 74, 74)
+                .addGap(111, 111, 111)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButtonExport, jButtonSortA, jButtonSortD});
+
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonExport, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonSortA, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonSortD, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButtonSortA, jButtonSortD});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -88,15 +160,60 @@ public class showScoreForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new showScoreForm().setVisible(true);
+    private void jButtonSortAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSortAActionPerformed
+        jTableShowAll.setModel(new DefaultTableModel(null, new String[]{"Student Id", "First Name","Last Name","Course", "Score"}));
+        sc.SortAllScores(jTableShowAll, "", "SELECT `student_id`, firstName, lastName, label, student_score\n"
+                    + "FROM `score`\n"
+                    + "INNER JOIN student as stab on stab.id = `student_id`\n"
+                    + "INNER JOIN course as ctab on ctab.id = `course_id`"
+                    + "ORDER BY student_score ASC");
+
+    }//GEN-LAST:event_jButtonSortAActionPerformed
+
+    private void jButtonExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExportActionPerformed
+        String filePath = "D:\\CMC_UNI\\CNTT\\Object Oriented Programming\\FileStorage\\StdScore.txt";
+        File file = new File(filePath);
+        try {  
+            FileWriter fw = new FileWriter(file);
+            BufferedWriter bw = new BufferedWriter(fw);
+            
+            for (int i = 0; i<jTableShowAll.getRowCount(); i++){ // Row
+                for (int j = 0; j<jTableShowAll.getColumnCount(); j++){ // Coulumn
+                    bw.write(jTableShowAll.getValueAt(i, j).toString() + " ");
+                }
+                bw.newLine();
             }
+            
+            bw.close();
+            fw.close();
+            
+        } catch (IOException ex) {
+            Logger.getLogger(showScoreForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
+    }//GEN-LAST:event_jButtonExportActionPerformed
+
+    private void jButtonSortDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSortDActionPerformed
+        jTableShowAll.setModel(new DefaultTableModel(null, new String[]{"Student Id", "First Name","Last Name","Course", "Score"}));
+        sc.SortAllScores(jTableShowAll, "", "SELECT `student_id`, firstName, lastName, label, student_score\n"
+                    + "FROM `score`\n"
+                    + "INNER JOIN student as stab on stab.id = `student_id`\n"
+                    + "INNER JOIN course as ctab on ctab.id = `course_id`"
+                    + "ORDER BY student_score DESC");
+    }//GEN-LAST:event_jButtonSortDActionPerformed
+
+    public static void main(String args[]) {
+        java.awt.EventQueue.invokeLater(() -> {
+            new showScoreForm().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonExport;
+    private javax.swing.JButton jButtonSortA;
+    private javax.swing.JButton jButtonSortD;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

@@ -1,3 +1,5 @@
+package StudentPackage;
+
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -151,6 +153,42 @@ public class score {
                     + "FROM `score`\n"
                     + "INNER JOIN student as stab on stab.id = `student_id`\n"
                     + "INNER JOIN course as ctab on ctab.id = `course_id`");
+
+            ResultSet rs = ps.executeQuery();
+            DefaultTableModel model = (DefaultTableModel) table.getModel();
+            
+            Object[] row;
+            
+            // add each row in table to row array.
+            while (rs.next()) {
+                // Declare array length
+                row = new Object[5];
+                // assigned data to row array
+                row[0] = rs.getInt(1); // student_id
+                row[1] = rs.getString(2); // firstName
+                row[2] = rs.getString(3); // lastName
+                row[3] = rs.getString(4); // label
+                row[4] = rs.getDouble(5); // student_score
+
+                // add row array to my table model
+                model.addRow(row);
+            }
+
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(student.class.getName()).log(Level.SEVERE, null, ex);
+        }    
+    }
+    
+    public void SortAllScores(JTable table, String valueToSearch, String query) {
+        Connection con = MyConnection.getConnection();
+        PreparedStatement ps;
+        
+        try {
+            // Select data from `score` table then (remember to breakline)
+            // join student_id cloumn in student table, (remember to breakline)
+            // join course_id cloumn in course table. (end. no breakline)
+            ps = con.prepareStatement(query);
 
             ResultSet rs = ps.executeQuery();
             DefaultTableModel model = (DefaultTableModel) table.getModel();

@@ -1,3 +1,10 @@
+package StudentPackage;
+
+import GigaChat.ChatClient;
+import GigaChat.ChatServer;
+import managePackage.ManageCrsForm;
+import managePackage.EditDeleteScore;
+import managePackage.ManageStdForm2;
 import javax.swing.JFrame;
 
 public class MainForm extends javax.swing.JFrame {
@@ -35,6 +42,9 @@ public class MainForm extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItemServer = new javax.swing.JMenuItem();
+        jMenuItemClient = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -199,6 +209,32 @@ public class MainForm extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
+        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/chatting.png"))); // NOI18N
+        jMenu2.setText("Message");
+        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu2MouseClicked(evt);
+            }
+        });
+
+        jMenuItemServer.setText("Server");
+        jMenuItemServer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemServerActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItemServer);
+
+        jMenuItemClient.setText("Client");
+        jMenuItemClient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemClientActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItemClient);
+
+        jMenuBar1.add(jMenu2);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -300,6 +336,24 @@ public class MainForm extends javax.swing.JFrame {
         showSc.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
+    private void jMenuItemServerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemServerActionPerformed
+        // Server
+        new ChatServer().setVisible(true);
+//        this.setVisible(false);
+        
+        
+    }//GEN-LAST:event_jMenuItemServerActionPerformed
+
+    private void jMenuItemClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemClientActionPerformed
+        // Client
+        new ChatClient().setVisible(true);
+
+    }//GEN-LAST:event_jMenuItemClientActionPerformed
+
+    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenu2MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -342,6 +396,7 @@ public class MainForm extends javax.swing.JFrame {
     public static javax.swing.JLabel jLabel2_crsCount;
     public static javax.swing.JLabel jLabel2_stdCount;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuCourse;
@@ -351,6 +406,8 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItemClient;
+    private javax.swing.JMenuItem jMenuItemServer;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

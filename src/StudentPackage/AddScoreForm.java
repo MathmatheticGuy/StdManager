@@ -1,3 +1,6 @@
+package StudentPackage;
+import managePackage.EditDeleteScore;
+
 import java.awt.Color;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;

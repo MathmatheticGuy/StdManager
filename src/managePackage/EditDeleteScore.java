@@ -1,4 +1,9 @@
-import com.sun.scenario.effect.impl.sw.java.JSWBoxShadowPeer;
+package managePackage;
+
+import StudentPackage.AddScoreForm;
+import StudentPackage.score;
+import StudentPackage.course;
+import StudentPackage.showScoreForm;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import javax.swing.JFrame;

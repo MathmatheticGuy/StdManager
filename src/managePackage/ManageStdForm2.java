@@ -1,3 +1,8 @@
+package managePackage;
+
+import StudentPackage.MyFunction;
+import StudentPackage.MainForm;
+import StudentPackage.student;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.text.ParseException;
