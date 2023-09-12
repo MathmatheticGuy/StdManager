@@ -42,7 +42,10 @@ public class Client {
             while (socket.isConnected()){
                 String messageToSend = scanner.nextLine();
                 bufferedWriter.write(username + ": " + messageToSend);
+<<<<<<< HEAD
                 
+=======
+>>>>>>> origin/master
                 bufferedWriter.newLine();
                 bufferedWriter.flush();
                 

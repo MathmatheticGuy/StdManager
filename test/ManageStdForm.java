@@ -1,6 +1,9 @@
+<<<<<<< HEAD
 import StudentPackage.MainForm;
 import StudentPackage.MyFunction;
 import StudentPackage.student;
+=======
+>>>>>>> origin/master
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
